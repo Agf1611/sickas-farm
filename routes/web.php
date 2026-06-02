@@ -24,8 +24,12 @@ Route::middleware([FilamentAuthenticate::class])
     ->prefix('admin/invoices')
     ->name('sickas-farm.invoices.')
     ->group(function (): void {
+        Route::get('/purchase/{purchase}/preview', [InvoicePdfController::class, 'previewPurchase'])
+            ->name('purchase.preview');
         Route::get('/purchase/{purchase}/pdf', [InvoicePdfController::class, 'purchase'])
             ->name('purchase.pdf');
+        Route::get('/sale/{sale}/preview', [InvoicePdfController::class, 'previewSale'])
+            ->name('sale.preview');
         Route::get('/sale/{sale}/pdf', [InvoicePdfController::class, 'sale'])
             ->name('sale.pdf');
     });

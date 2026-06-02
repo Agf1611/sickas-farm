@@ -94,14 +94,44 @@
         .data th {
             background: #111827;
             color: #ffffff;
-            font-size: 9px;
-            padding: 7px 6px;
+            font-size: 8px;
+            padding: 6px 5px;
             text-align: left;
         }
 
         .data td {
             border-bottom: 1px solid #e5e7eb;
-            padding: 7px 6px;
+            font-size: 8.5px;
+            padding: 6px 5px;
+        }
+
+        .detail-summary {
+            border: 1px solid #d1d5db;
+            font-size: 9px;
+            margin-bottom: 10px;
+            padding: 7px;
+        }
+
+        .detail-summary-ok {
+            background: #ecfdf5;
+            border-color: #86efac;
+            color: #166534;
+        }
+
+        .detail-summary-warning {
+            background: #fffbeb;
+            border-color: #fbbf24;
+            color: #92400e;
+        }
+
+        .warning-row td {
+            background: #fffbeb;
+        }
+
+        .row-detail {
+            color: #4b5563;
+            font-size: 8px;
+            margin-top: 2px;
         }
 
         .right {
@@ -126,88 +156,6 @@
     </style>
 </head>
 <body>
-    <table class="letterhead">
-        <tr>
-            <td class="logo-cell">
-                @if (! empty($identity['logo_path']))
-                    <img class="logo" src="{{ $identity['logo_path'] }}" alt="Logo">
-                @endif
-            </td>
-            <td class="center">
-                <p class="kicker">Badan Usaha Milik Desa</p>
-                <p class="kicker">{{ $identity['bumdes_name'] ?? 'BUMDes Ketapang Ternak Domba' }}</p>
-                <p class="title-line">{{ $identity['unit_name'] ?? 'Unit Ternak' }}</p>
-                @if (! empty($identity['address']))
-                    <p class="small-line"><strong>Alamat:</strong> {{ $identity['address'] }}</p>
-                @endif
-                @if (! empty($identity['phone']) || ! empty($identity['email']))
-                    <p class="small-line">
-                        @if (! empty($identity['phone']))Telepon/WhatsApp: {{ $identity['phone'] }}@endif
-                        @if (! empty($identity['phone']) && ! empty($identity['email'])) | @endif
-                        @if (! empty($identity['email']))Email: {{ $identity['email'] }}@endif
-                    </p>
-                @endif
-                @if (! empty($identity['legal_number']))
-                    <p class="small-line">No. Legalitas: {{ $identity['legal_number'] }}</p>
-                @endif
-            </td>
-            <td class="logo-cell"></td>
-        </tr>
-    </table>
-    <div class="rule"></div>
-
-    <h1 class="invoice-title">{{ $title }}</h1>
-
-    <table class="meta">
-        <tr>
-            <td class="label">Nomor</td>
-            <td>{{ $number }}</td>
-            <td class="label">Tanggal</td>
-            <td>{{ $date }}</td>
-        </tr>
-        <tr>
-            <td class="label">{{ $party_label }}</td>
-            <td>{{ $party_name }}</td>
-            <td class="label">Tanggal Cetak</td>
-            <td>{{ \App\Support\SickasFormatter::dateTime(now()) }}</td>
-        </tr>
-        @foreach ($meta as $label => $value)
-            <tr>
-                <td class="label">{{ $label }}</td>
-                <td colspan="3">{{ $value }}</td>
-            </tr>
-        @endforeach
-    </table>
-
-    <table class="data">
-        <thead>
-            <tr>
-                <th>Uraian</th>
-                <th>Jumlah</th>
-                <th>Berat</th>
-                <th class="right">Nominal</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($rows as $row)
-                <tr>
-                    <td>{{ $row['description'] }}</td>
-                    <td>{{ $row['qty'] }}</td>
-                    <td>{{ $row['weight'] }}</td>
-                    <td class="right">{{ $row['amount'] }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-    <p class="total">{{ $total_label }}: <strong>{{ $total }}</strong></p>
-
-    @if ($notes)
-        <p class="notes"><strong>Catatan:</strong> {{ $notes }}</p>
-    @endif
-
-    @if (! empty($identity['report_footer']))
-        <p class="notes">{{ $identity['report_footer'] }}</p>
-    @endif
+    @include('invoices.partials.sickas-invoice-content')
 </body>
 </html>

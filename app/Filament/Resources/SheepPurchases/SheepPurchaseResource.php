@@ -198,9 +198,9 @@ class SheepPurchaseResource extends Resource
             ->recordActions([
                 ViewAction::make()->label('Detail'),
                 Action::make('invoice_pdf')
-                    ->label('Cetak Invoice')
-                    ->icon(Heroicon::OutlinedDocumentArrowDown)
-                    ->url(fn (SheepPurchase $record): string => route('sickas-farm.invoices.purchase.pdf', $record))
+                    ->label('Preview Invoice')
+                    ->icon(Heroicon::OutlinedEye)
+                    ->url(fn (SheepPurchase $record): string => route('sickas-farm.invoices.purchase.preview', $record))
                     ->openUrlInNewTab(),
                 EditAction::make()->label('Ubah'),
                 DeleteAction::make()->label('Hapus'),

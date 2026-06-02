@@ -150,6 +150,36 @@ class MarketSaleDecisionTest extends TestCase
             'total_amount' => 2000000,
         ]);
 
+        $soldSheep = Sheep::query()
+            ->where('fattening_batch_id', $purchase->fattening_batch_id)
+            ->first();
+
+        SaleItem::create([
+            'sale_id' => $sale->id,
+            'sheep_id' => $soldSheep->id,
+            'weight_kg' => 28,
+            'price' => 2000000,
+            'notes' => 'Contoh detail ternak terjual',
+        ]);
+
+        $this->actingAs($admin)
+            ->get(route('sickas-farm.invoices.purchase.preview', $purchase))
+            ->assertOk()
+            ->assertSee('Preview Invoice Pembelian Ternak')
+            ->assertSee($purchase->purchase_number);
+
+        $this->actingAs($admin)
+            ->get(route('sickas-farm.invoices.sale.preview', $sale))
+            ->assertOk()
+            ->assertSee('Preview Invoice Penjualan Ternak')
+            ->assertSee($sale->sale_number)
+            ->assertSee('Kode Ternak')
+            ->assertSee('Batch')
+            ->assertSee('Subtotal')
+            ->assertSee($soldSheep->tag_number)
+            ->assertSee('Detail ternak sudah lengkap')
+            ->assertSee('Contoh detail ternak terjual');
+
         $this->actingAs($admin)
             ->get(route('sickas-farm.invoices.purchase.pdf', $purchase))
             ->assertOk()
@@ -159,6 +189,50 @@ class MarketSaleDecisionTest extends TestCase
             ->get(route('sickas-farm.invoices.sale.pdf', $sale))
             ->assertOk()
             ->assertHeader('content-type', 'application/pdf');
+    }
+
+    public function test_sale_invoice_shows_undetailed_remainder_when_header_total_exceeds_item_detail(): void
+    {
+        $this->seed(SickasFarmRoleSeeder::class);
+
+        $admin = User::factory()->create();
+        $admin->assignRole(SickasFarmPermissions::SUPER_ADMIN);
+
+        $batch = FatteningBatch::create([
+            'start_date' => '2026-06-01',
+            'initial_head_count' => 20,
+            'current_head_count' => 20,
+            'status' => 'active',
+        ]);
+
+        $sheep = Sheep::create([
+            'fattening_batch_id' => $batch->id,
+            'initial_weight_kg' => 25,
+            'status' => 'active',
+        ]);
+
+        $sale = Sale::create([
+            'fattening_batch_id' => $batch->id,
+            'sale_date' => '2026-06-02',
+            'sale_type' => 'bulk',
+            'head_count' => 20,
+            'total_amount' => 56000000,
+        ]);
+
+        SaleItem::create([
+            'sale_id' => $sale->id,
+            'sheep_id' => $sheep->id,
+            'weight_kg' => 28,
+            'price' => 2800000,
+        ]);
+
+        $this->actingAs($admin)
+            ->get(route('sickas-farm.invoices.sale.preview', $sale))
+            ->assertOk()
+            ->assertSee('Detail ternak belum lengkap')
+            ->assertSee('Belum dirinci')
+            ->assertSee('19 ekor')
+            ->assertSee('Rp 53.200.000');
     }
 
     public function test_approved_batch_sale_proposal_can_be_converted_to_real_sale(): void

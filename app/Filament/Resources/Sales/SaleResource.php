@@ -148,10 +148,24 @@ class SaleResource extends Resource
             ])
             ->recordActions([
                 ViewAction::make()->label('Detail'),
+                Action::make('sold_livestock_detail')
+                    ->label('Ternak Terjual')
+                    ->icon(Heroicon::OutlinedClipboardDocumentList)
+                    ->color('info')
+                    ->modalHeading(fn (Sale $record): string => 'Detail Ternak Terjual - '.$record->sale_number)
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Tutup')
+                    ->modalContent(fn (Sale $record) => view('filament.sales.sold-livestock-detail', [
+                        'sale' => $record->loadMissing([
+                            'saleItems.sheep.livestockType',
+                            'saleItems.sheep.fatteningBatch',
+                            'saleItems.sheep.pen',
+                        ]),
+                    ])),
                 Action::make('invoice_pdf')
-                    ->label('Cetak Invoice')
-                    ->icon(Heroicon::OutlinedDocumentArrowDown)
-                    ->url(fn (Sale $record): string => route('sickas-farm.invoices.sale.pdf', $record))
+                    ->label('Preview Invoice')
+                    ->icon(Heroicon::OutlinedEye)
+                    ->url(fn (Sale $record): string => route('sickas-farm.invoices.sale.preview', $record))
                     ->openUrlInNewTab(),
                 EditAction::make()->label('Ubah'),
                 DeleteAction::make()->label('Hapus'),
