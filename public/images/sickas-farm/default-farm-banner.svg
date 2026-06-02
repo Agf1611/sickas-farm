@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 520" role="img" aria-label="Ilustrasi area peternakan">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#dff7ef"/>
+      <stop offset=".48" stop-color="#f8f5df"/>
+      <stop offset="1" stop-color="#ccebd7"/>
+    </linearGradient>
+    <linearGradient id="field" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#1f7a4f"/>
+      <stop offset=".55" stop-color="#2da96b"/>
+      <stop offset="1" stop-color="#78b95b"/>
+    </linearGradient>
+    <linearGradient id="shade" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#0f172a" stop-opacity=".62"/>
+      <stop offset=".58" stop-color="#0f172a" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#0f172a" stop-opacity=".42"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="520" fill="url(#sky)"/>
+  <circle cx="1250" cy="105" r="58" fill="#f6c85f" opacity=".8"/>
+  <path d="M0 295c180-58 330-52 500-12 180 42 350 42 530-8 210-58 400-54 570 4v241H0z" fill="url(#field)"/>
+  <path d="M0 360c230-35 405-24 620 24 205 45 420 42 615-12 130-36 235-42 365-20v168H0z" fill="#0f5f3d" opacity=".62"/>
+  <path d="M105 262h360v170H105z" fill="#755c43"/>
+  <path d="M72 262l212-116 214 116z" fill="#8f4f2f"/>
+  <path d="M145 294h92v138h-92z" fill="#33251d"/>
+  <path d="M272 294h150v74H272z" fill="#e6cfa8"/>
+  <path d="M590 240h310v176H590z" fill="#8a6748"/>
+  <path d="M560 240l185-100 185 100z" fill="#7c3f2d"/>
+  <path d="M632 282h92v134h-92z" fill="#33251d"/>
+  <path d="M760 282h92v72h-92z" fill="#e6cfa8"/>
+  <g opacity=".75">
+    <path d="M1010 315c34-38 88-42 124-12 22 18 28 47 12 72-18 28-58 37-95 22-37-14-61-51-41-82z" fill="#f8fafc"/>
+    <circle cx="1118" cy="284" r="31" fill="#f8fafc"/>
+    <circle cx="1126" cy="285" r="7" fill="#111827"/>
+    <path d="M1092 263c-26-24-62-22-78 6 28 8 48 12 78-6zM1143 263c31-18 60-9 72 23-31 1-51-4-72-23z" fill="#f8fafc"/>
+    <path d="M1040 390v48M1096 394v48M1150 374v48" stroke="#f8fafc" stroke-width="18" stroke-linecap="round"/>
+  </g>
+  <g opacity=".62">
+    <path d="M1265 340c25-27 66-30 94-8 18 14 22 37 10 56-14 22-45 29-74 18-28-11-45-39-30-66z" fill="#f1f5f9"/>
+    <circle cx="1346" cy="317" r="24" fill="#f1f5f9"/>
+    <path d="M1288 399v36M1330 402v36M1370 386v36" stroke="#f1f5f9" stroke-width="14" stroke-linecap="round"/>
+  </g>
+  <ellipse cx="1280" cy="450" rx="390" ry="42" fill="#052e16" opacity=".18" filter="url(#soft)"/>
+  <rect width="1600" height="520" fill="url(#shade)"/>
+</svg>

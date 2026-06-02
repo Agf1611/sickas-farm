@@ -1,0 +1,180 @@
+<?php
+
+namespace App\Support;
+
+class SickasFarmPermissions
+{
+    public const SUPER_ADMIN = 'Super Admin';
+
+    public const DIREKTUR_BUMDES = 'Direktur BUMDes';
+
+    public const BENDAHARA = 'Bendahara';
+
+    public const KEPALA_UNIT_DOMBA = 'Kepala Unit Domba';
+
+    public const PETUGAS_KANDANG = 'Petugas Kandang';
+
+    public const PENGAWAS = 'Pengawas';
+
+    public const PERMISSIONS = [
+        'dashboard.view',
+        'dashboard.financial.view',
+        'reports.operational.view',
+        'reports.financial.view',
+        'users.view',
+        'users.manage',
+        'users.delete',
+        'business-profiles.view',
+        'business-profiles.manage',
+        'livestock-types.view',
+        'livestock-types.manage',
+        'livestock-types.delete',
+        'market-prices.view',
+        'market-prices.manage',
+        'market-prices.delete',
+        'pens.view',
+        'pens.manage',
+        'pens.delete',
+        'suppliers.view',
+        'suppliers.manage',
+        'suppliers.delete',
+        'buyers.view',
+        'buyers.manage',
+        'buyers.delete',
+        'expense-categories.view',
+        'expense-categories.manage',
+        'expense-categories.delete',
+        'purchases.view',
+        'purchases.manage',
+        'purchases.delete',
+        'batches.view',
+        'batches.manage',
+        'batches.delete',
+        'sheep.view',
+        'sheep.manage',
+        'sheep.delete',
+        'weighing.view',
+        'weighing.manage',
+        'weighing.delete',
+        'incidents.view',
+        'incidents.manage',
+        'incidents.delete',
+        'expenses.view',
+        'expenses.manage',
+        'expenses.delete',
+        'sales.view',
+        'sales.manage',
+        'sales.delete',
+        'sale-proposals.view',
+        'sale-proposals.manage',
+        'sale-proposals.delete',
+        'stock-movements.view',
+        'stock-movements.manage',
+        'stock-movements.delete',
+    ];
+
+    /**
+     * @return array<string, array<int, string>>
+     */
+    public static function rolePermissions(): array
+    {
+        return [
+            self::SUPER_ADMIN => self::PERMISSIONS,
+            self::DIREKTUR_BUMDES => [
+                'dashboard.view',
+                'dashboard.financial.view',
+                'reports.operational.view',
+                'reports.financial.view',
+                'pens.view',
+                'livestock-types.view',
+                'market-prices.view',
+                'suppliers.view',
+                'buyers.view',
+                'expense-categories.view',
+                'purchases.view',
+                'batches.view',
+                'sheep.view',
+                'weighing.view',
+                'incidents.view',
+                'expenses.view',
+                'sales.view',
+                'sale-proposals.view',
+                'stock-movements.view',
+            ],
+            self::BENDAHARA => [
+                'dashboard.view',
+                'dashboard.financial.view',
+                'reports.financial.view',
+                'pens.view',
+                'livestock-types.view',
+                'market-prices.view',
+                'market-prices.manage',
+                'buyers.view',
+                'buyers.manage',
+                'expense-categories.view',
+                'expense-categories.manage',
+                'purchases.view',
+                'batches.view',
+                'expenses.view',
+                'expenses.manage',
+                'sales.view',
+                'sales.manage',
+                'sale-proposals.view',
+                'sale-proposals.manage',
+                'stock-movements.view',
+            ],
+            self::KEPALA_UNIT_DOMBA => [
+                'dashboard.view',
+                'reports.operational.view',
+                'pens.view',
+                'pens.manage',
+                'livestock-types.view',
+                'livestock-types.manage',
+                'market-prices.view',
+                'market-prices.manage',
+                'suppliers.view',
+                'suppliers.manage',
+                'buyers.view',
+                'buyers.manage',
+                'purchases.view',
+                'purchases.manage',
+                'batches.view',
+                'batches.manage',
+                'sheep.view',
+                'sheep.manage',
+                'weighing.view',
+                'weighing.manage',
+                'incidents.view',
+                'incidents.manage',
+                'sales.view',
+                'sales.manage',
+                'sale-proposals.view',
+                'sale-proposals.manage',
+                'stock-movements.view',
+            ],
+            self::PETUGAS_KANDANG => [
+                'dashboard.view',
+                'pens.view',
+                'livestock-types.view',
+                'market-prices.view',
+                'batches.view',
+                'sheep.view',
+                'weighing.view',
+                'weighing.manage',
+                'incidents.view',
+                'incidents.manage',
+                'sale-proposals.view',
+                'stock-movements.view',
+            ],
+            self::PENGAWAS => [
+                'dashboard.view',
+                'dashboard.financial.view',
+                'reports.operational.view',
+                'reports.financial.view',
+                'market-prices.view',
+                'sale-proposals.view',
+                'stock-movements.view',
+            ],
+        ];
+    }
+}
