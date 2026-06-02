@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Services\MarketValueEstimationService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Validation\ValidationException;
 
 class SaleProposalItem extends Model
 {
@@ -33,6 +34,8 @@ class SaleProposalItem extends Model
                 return;
             }
 
+            $item->validateSelectableSheep();
+
             $estimate = app(MarketValueEstimationService::class)->estimateSheep($item->sheep);
 
             $item->latest_weight_kg ??= $estimate['latest_weight'];
@@ -49,5 +52,34 @@ class SaleProposalItem extends Model
     public function sheep(): BelongsTo
     {
         return $this->belongsTo(Sheep::class);
+    }
+
+    private function validateSelectableSheep(): void
+    {
+        $sheep = $this->sheep ?: Sheep::find($this->sheep_id);
+        $proposal = $this->saleProposal ?: SaleProposal::find($this->sale_proposal_id);
+
+        if (! $sheep || ! $proposal) {
+            return;
+        }
+
+        if ((int) $sheep->fattening_batch_id !== (int) $proposal->fattening_batch_id) {
+            $this->fail('Ternak yang diajukan harus berasal dari batch yang sama.');
+        }
+
+        if ($sheep->status !== 'active') {
+            $this->fail('Hanya ternak aktif yang bisa dimasukkan ke ajuan penjualan.');
+        }
+
+        if ($proposal->status === 'converted_to_sale') {
+            $this->fail('Ajuan yang sudah menjadi penjualan tidak bisa diubah.');
+        }
+    }
+
+    private function fail(string $message): void
+    {
+        throw ValidationException::withMessages([
+            'sale_proposal_item' => $message,
+        ]);
     }
 }

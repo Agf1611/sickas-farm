@@ -298,4 +298,33 @@ class MarketSaleDecisionTest extends TestCase
         $this->assertSame(1, SaleItem::query()->where('sale_id', $sale->id)->count());
         $this->assertSame('sold', $first->fresh()->status);
     }
+
+    public function test_non_active_livestock_cannot_be_added_to_sale_proposal_items(): void
+    {
+        $batch = FatteningBatch::create([
+            'start_date' => '2026-06-01',
+            'initial_head_count' => 2,
+            'current_head_count' => 2,
+            'status' => 'active',
+        ]);
+
+        $soldSheep = Sheep::create([
+            'fattening_batch_id' => $batch->id,
+            'status' => 'sold',
+        ]);
+
+        $proposal = SaleProposal::create([
+            'fattening_batch_id' => $batch->id,
+            'proposed_date' => '2026-06-02',
+            'proposal_type' => 'selected_livestock',
+            'status' => 'draft',
+        ]);
+
+        $this->expectException(ValidationException::class);
+
+        SaleProposalItem::create([
+            'sale_proposal_id' => $proposal->id,
+            'sheep_id' => $soldSheep->id,
+        ]);
+    }
 }
