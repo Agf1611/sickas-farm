@@ -7,7 +7,7 @@ use Filament\Http\Middleware\Authenticate as FilamentAuthenticate;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/admin/login');
 });
 
 Route::middleware([FilamentAuthenticate::class])

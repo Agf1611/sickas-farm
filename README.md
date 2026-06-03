@@ -8,6 +8,12 @@ Panel admin tersedia di:
 /admin
 ```
 
+Jika membuka root domain (`/`), aplikasi langsung mengarahkan ke halaman login admin:
+
+```text
+/admin/login
+```
+
 ## Syarat Menjalankan Aplikasi
 
 ### Server Produksi
@@ -117,6 +123,7 @@ Repository ini sudah menyiapkan workflow:
 ```
 
 Workflow berjalan saat ada push ke branch `main` atau dijalankan manual dari tab GitHub Actions.
+Workflow juga berjalan untuk branch `master`, sehingga repository lama yang belum memakai `main` tetap bisa langsung deploy.
 
 ### Secrets GitHub Yang Wajib Diisi
 
@@ -131,10 +138,25 @@ DEPLOY_PATH        path project di server, contoh /var/www/sickas-farm
 SSH_PRIVATE_KEY    private key SSH untuk login ke server
 ```
 
+Isi secret database berikut agar workflow bisa membuat `.env` otomatis pada deploy pertama:
+
+```text
+APP_URL            URL aplikasi, contoh https://domain-anda.com
+DB_DATABASE        nama database
+DB_USERNAME        username database
+DB_PASSWORD        password database
+```
+
 Opsional:
 
 ```text
 DEPLOY_PORT        port SSH, default 22
+DB_CONNECTION      default mysql
+DB_HOST            default 127.0.0.1
+DB_PORT            default 3306
+SICKAS_ADMIN_NAME  default Admin SICKAS FARM
+SICKAS_ADMIN_EMAIL email admin awal
+SICKAS_ADMIN_PASSWORD password admin awal; jika kosong, sistem membuat password random saat seeder
 ```
 
 Server harus sudah memiliki folder target dan user `DEPLOY_USER` harus punya izin tulis ke folder tersebut.
@@ -157,10 +179,10 @@ sudo chown -R user:www-data /var/www/sickas-farm
 Pada deploy pertama, workflow akan mengirim file ke server. Jika `.env` belum ada, workflow akan berhenti setelah sync file dengan pesan:
 
 ```text
-Files synced. Create .env on the server, then rerun this workflow.
+Files synced. Create .env on the server or set APP_URL, DB_DATABASE, DB_USERNAME, and DB_PASSWORD secrets, then rerun this workflow.
 ```
 
-Setelah file terkirim, buat `.env` di server:
+Jika secrets `APP_URL`, `DB_DATABASE`, `DB_USERNAME`, dan `DB_PASSWORD` sudah diisi, workflow akan membuat `.env` otomatis. Jika ingin membuat manual, setelah file terkirim jalankan:
 
 ```bash
 cd /var/www/sickas-farm
@@ -210,6 +232,36 @@ php artisan filament:optimize
 Atau rerun workflow dari tab GitHub Actions agar migration, seeder, storage link, dan cache dijalankan otomatis.
 
 Setelah admin berhasil login, ganti password admin dan hapus `SICKAS_ADMIN_PASSWORD` dari `.env`.
+
+### Contoh Secrets Untuk aaPanel
+
+Jika aaPanel membuat site di `/www/wwwroot/sickasfarm` dan domain memakai port khusus:
+
+```text
+DEPLOY_HOST=192.168.1.8
+DEPLOY_USER=agf16
+DEPLOY_PATH=/www/wwwroot/sickasfarm
+DEPLOY_PORT=22
+APP_URL=http://192.168.1.8:1216
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nama_database_aapanel
+DB_USERNAME=user_database_aapanel
+DB_PASSWORD=password_database_aapanel
+SICKAS_ADMIN_EMAIL=admin@domain-anda.com
+```
+
+Di aaPanel, pastikan:
+
+- Site root mengarah ke folder `public`.
+- URL rewrite Laravel aktif:
+
+```nginx
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+```
 
 ## Deploy Manual Dari Server
 
