@@ -69,11 +69,17 @@ class MortalityRecordResource extends Resource
                         ->searchable()
                         ->preload(),
                     TextInput::make('head_count')->label('Jumlah Ekor')->numeric()->minValue(1)->default(1)->required(),
+                ])
+                ->columns(2),
+            Section::make('Detail Tambahan')
+                ->schema([
                     TextInput::make('reason')->label('Penyebab')->maxLength(255),
                     Textarea::make('notes')->label('Catatan')->rows(3)->columnSpanFull(),
                     self::photoUpload('photo_paths', 'Foto Kematian / Afkir', 'sickas-farm/kematian-afkir'),
                 ])
-                ->columns(2),
+                ->columns(2)
+                ->collapsible()
+                ->collapsed(),
         ]);
     }
 

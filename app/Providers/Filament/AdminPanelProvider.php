@@ -38,7 +38,9 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('SICKAS FARM')
             ->login(SickasLogin::class)
             ->maxContentWidth(Width::Full)
-            ->sidebarWidth('16rem')
+            ->sidebarWidth('14rem')
+            ->collapsedSidebarWidth('4.25rem')
+            ->collapsibleNavigationGroups()
             ->colors([
                 'primary' => Color::Amber,
             ])

@@ -85,12 +85,6 @@ class SheepPurchaseResource extends Resource
                         ->relationship('pen', 'name')
                         ->searchable()
                         ->preload(),
-                    Select::make('fattening_batch_id')
-                        ->label('Hubungkan ke Batch')
-                        ->relationship('fatteningBatch', 'batch_code')
-                        ->helperText('Kosongkan jika ingin membuat batch baru otomatis.')
-                        ->searchable()
-                        ->preload(),
                 ])
                 ->columns(2),
             Section::make('Jumlah dan Biaya')
@@ -121,13 +115,25 @@ class SheepPurchaseResource extends Resource
                         ->prefix('Rp')
                         ->default(0)
                         ->required(),
+                ])
+                ->columns(2),
+            Section::make('Detail Tambahan')
+                ->schema([
+                    Select::make('fattening_batch_id')
+                        ->label('Hubungkan ke Batch')
+                        ->relationship('fatteningBatch', 'batch_code')
+                        ->helperText('Kosongkan jika ingin membuat batch baru otomatis.')
+                        ->searchable()
+                        ->preload(),
                     Textarea::make('notes')
                         ->label('Catatan')
                         ->rows(3)
                         ->columnSpanFull(),
                     self::photoUpload('proof_photo_paths', 'Foto Bukti Pembelian', 'sickas-farm/bukti-pembelian'),
                 ])
-                ->columns(2),
+                ->columns(2)
+                ->collapsible()
+                ->collapsed(),
         ]);
     }
 

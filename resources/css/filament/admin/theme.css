@@ -2121,3 +2121,377 @@
         grid-template-columns: minmax(0, 1fr);
     }
 }
+
+/* SICKAS UI polish v2: compact, mobile-first, and theme-safe overrides. */
+:root {
+    --sickas-radius: 0.95rem;
+    --sickas-card-border: rgba(148, 163, 184, 0.2);
+    --sickas-soft-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+}
+
+.fi-main {
+    --fi-main-padding: 1rem;
+}
+
+.fi-page-header-heading {
+    font-size: clamp(1.45rem, 1.9vw, 2rem);
+    letter-spacing: 0;
+}
+
+.fi-sidebar {
+    border-right: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.fi-sidebar-header {
+    min-height: 4.2rem;
+    padding-inline: 1rem;
+}
+
+.fi-sidebar-nav {
+    padding-inline: 0.55rem;
+}
+
+.fi-sidebar-nav-groups {
+    gap: 0.85rem;
+}
+
+.fi-sidebar-group-label {
+    color: #64748b;
+    font-size: 0.69rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+}
+
+.fi-sidebar-item a {
+    min-height: 2.45rem;
+    border-radius: 0.72rem;
+    font-size: 0.82rem;
+    font-weight: 650;
+}
+
+.fi-sidebar-item-active a {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.16), rgba(245, 158, 11, 0.06));
+    box-shadow: inset 3px 0 0 #f59e0b;
+}
+
+.dark .fi-sidebar-item-active a {
+    background: linear-gradient(90deg, rgba(251, 191, 36, 0.16), rgba(251, 191, 36, 0.04));
+}
+
+.fi-topbar {
+    min-height: 3.85rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.fi-global-search-field {
+    min-height: 2.35rem;
+}
+
+.fi-ta,
+.fi-section,
+.fi-fo-component-ctn {
+    border-radius: var(--sickas-radius);
+}
+
+.fi-section {
+    border-color: var(--sickas-card-border);
+    box-shadow: var(--sickas-soft-shadow);
+}
+
+.fi-section-header {
+    padding-block: 0.9rem 0.45rem;
+}
+
+.fi-section-content {
+    padding-block: 0.85rem;
+}
+
+.fi-input-wrp,
+.fi-select-input,
+.fi-btn {
+    border-radius: 0.72rem;
+}
+
+.fi-btn {
+    min-height: 2.35rem;
+    font-size: 0.82rem;
+    font-weight: 750;
+}
+
+.fi-ta-header,
+.fi-ta-content,
+.fi-ta-footer {
+    border-color: rgba(148, 163, 184, 0.16);
+}
+
+.fi-ta-table th {
+    font-size: 0.7rem;
+    letter-spacing: 0.025em;
+}
+
+.fi-ta-table td {
+    font-size: 0.82rem;
+}
+
+.sickas-dashboard-head {
+    gap: 0.8rem;
+}
+
+.sickas-hero-card {
+    min-height: 136px;
+    border-radius: 1rem;
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.12);
+}
+
+.sickas-hero-main {
+    max-width: min(100%, 43rem);
+    border-radius: 0.88rem;
+}
+
+.sickas-hero-logo {
+    width: 3.9rem;
+    height: 3.9rem;
+}
+
+.sickas-hero-logo img {
+    object-fit: contain !important;
+    padding: 0.2rem;
+}
+
+.sickas-hero-copy h1 {
+    font-size: clamp(1.18rem, 1.55vw, 1.62rem);
+}
+
+.sickas-hero-desc {
+    font-size: 0.83rem;
+}
+
+.sickas-quick-card,
+.sickas-panel,
+.sickas-stat-card {
+    border-radius: 1rem;
+    box-shadow: var(--sickas-soft-shadow);
+}
+
+.sickas-quick-card {
+    padding: 0.9rem;
+}
+
+.sickas-quick-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sickas-quick-button {
+    min-height: 2.7rem;
+    border-radius: 0.78rem;
+    font-size: 0.82rem;
+}
+
+.sickas-stat-grid {
+    gap: 0.7rem;
+}
+
+.sickas-stat-card {
+    min-height: 92px;
+    padding: 0.78rem 0.82rem;
+}
+
+.sickas-stat-label {
+    font-size: 0.7rem;
+}
+
+.sickas-stat-value {
+    margin-top: 0.24rem;
+    font-size: clamp(1rem, 1.25vw, 1.28rem);
+}
+
+.sickas-stat-desc {
+    margin-top: 0.38rem;
+    font-size: 0.68rem;
+}
+
+.sickas-stat-icon {
+    width: 1.85rem;
+    height: 1.85rem;
+}
+
+.fi-wi-chart .fi-section-header {
+    padding-block: 0.8rem 0.25rem;
+}
+
+.fi-wi-chart .fi-section-content {
+    padding-block: 0.15rem 0.85rem;
+}
+
+.fi-wi-chart-canvas-ctn {
+    min-height: 185px !important;
+}
+
+.sickas-ops-grid {
+    gap: 0.75rem;
+}
+
+.sickas-panel {
+    padding: 0.9rem;
+}
+
+.sickas-warning-list,
+.sickas-activity-list {
+    gap: 0.48rem;
+}
+
+.sickas-warning-item,
+.sickas-activity-item {
+    border-radius: 0.78rem;
+    padding: 0.58rem 0.65rem;
+}
+
+.sickas-warning-item p,
+.sickas-activity-item p {
+    font-size: 0.78rem;
+}
+
+.sickas-dashboard-table {
+    font-size: 0.76rem;
+}
+
+.sickas-dashboard-table th,
+.sickas-dashboard-table td {
+    padding: 0.58rem 0.62rem;
+}
+
+.sickas-batch-detail .sickas-batch-stat {
+    min-height: 96px;
+    border-radius: 0.9rem;
+    padding: 0.82rem;
+}
+
+.sickas-batch-detail .sickas-batch-actions a {
+    min-height: 2.55rem;
+}
+
+.sickas-batch-detail .sickas-batch-table th,
+.sickas-batch-detail .sickas-batch-table td {
+    padding-block: 0.62rem;
+}
+
+@media (min-width: 1280px) {
+    .sickas-stat-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .sickas-dashboard-head {
+        grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+    }
+}
+
+@media (max-width: 767px) {
+    .fi-main {
+        --fi-main-padding: 0.75rem;
+        padding-bottom: 5.9rem !important;
+    }
+
+    .fi-page-header {
+        margin-bottom: 0.65rem;
+    }
+
+    .fi-page-header-heading {
+        font-size: 1.38rem;
+    }
+
+    .fi-topbar {
+        min-height: 3.45rem;
+    }
+
+    .sickas-dashboard-head {
+        gap: 0.5rem;
+    }
+
+    .sickas-hero-card {
+        min-height: 98px;
+    }
+
+    .sickas-hero-main {
+        gap: 0.48rem;
+    }
+
+    .sickas-hero-logo {
+        width: 2.8rem !important;
+        height: 2.8rem !important;
+    }
+
+    .sickas-hero-copy h1 {
+        font-size: 1rem !important;
+    }
+
+    .sickas-hero-desc {
+        -webkit-line-clamp: 1;
+        font-size: 0.68rem !important;
+    }
+
+    .sickas-quick-card,
+    .sickas-panel {
+        padding: 0.62rem !important;
+    }
+
+    .sickas-quick-button {
+        min-height: 2.34rem;
+        font-size: 0.7rem;
+    }
+
+    .sickas-stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.46rem;
+    }
+
+    .sickas-stat-card {
+        min-height: 58px;
+        padding: 0.46rem 0.5rem !important;
+    }
+
+    .sickas-stat-label {
+        font-size: 0.58rem;
+    }
+
+    .sickas-stat-value {
+        font-size: 0.86rem !important;
+    }
+
+    .sickas-stat-icon {
+        width: 1.35rem;
+        height: 1.35rem;
+    }
+
+    .fi-wi-chart-canvas-ctn {
+        min-height: 118px !important;
+    }
+
+    .sickas-batch-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sickas-batch-detail .sickas-batch-stat {
+        min-height: 62px !important;
+        padding: 0.48rem 0.52rem !important;
+    }
+
+    .sickas-batch-detail .sickas-batch-actions .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .fi-modal-window {
+        border-radius: 1rem;
+    }
+}
+
+@media (max-width: 420px) {
+    .sickas-mobile-nav-item {
+        min-height: 2.75rem;
+        font-size: 0.6rem;
+    }
+
+    .sickas-mobile-nav-item svg {
+        width: 1rem;
+        height: 1rem;
+    }
+}

@@ -50,6 +50,8 @@
         ['label' => 'Estimasi L/R Hari Ini', 'value' => SickasFormatter::rupiah($finance['estimated_profit_loss_today']), 'hint' => 'Penjualan lama + estimasi jual - modal - biaya', 'tone' => $finance['estimated_profit_loss_today'] >= 0 ? 'success' : 'danger', 'mobile' => true],
     ];
 
+    $secondaryMobileCards = collect($summaryCards)->filter(fn (array $card): bool => ! ($card['mobile'] ?? false));
+
     $photoUrl = function (array|string|null $paths): ?string {
         $path = is_array($paths) ? ($paths[0] ?? null) : $paths;
 
@@ -107,6 +109,24 @@
             </article>
         @endforeach
     </section>
+
+    <details class="sickas-mobile-accordion sm:hidden">
+        <summary>
+            <span>Ringkasan lengkap batch</span>
+            <strong>{{ $secondaryMobileCards->count() }} item</strong>
+        </summary>
+        <div class="sickas-mobile-accordion-content">
+            <div class="grid grid-cols-2 gap-2">
+                @foreach ($secondaryMobileCards as $card)
+                    <article class="sickas-batch-stat sickas-batch-tone-{{ $card['tone'] }} rounded-xl border border-gray-200 bg-white p-3 dark:border-white/10 dark:bg-gray-950">
+                        <p class="text-[0.6rem] font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">{{ $card['label'] }}</p>
+                        <p class="mt-1 text-sm font-bold text-gray-950 dark:text-white">{{ $card['value'] }}</p>
+                        <p class="mt-1 text-[0.66rem] text-gray-500 dark:text-gray-400">{{ $card['hint'] }}</p>
+                    </article>
+                @endforeach
+            </div>
+        </div>
+    </details>
 
     <section class="grid gap-4 xl:grid-cols-[1fr_.85fr]">
         <div class="sickas-batch-panel sickas-batch-actions rounded-2xl border border-gray-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-gray-950">

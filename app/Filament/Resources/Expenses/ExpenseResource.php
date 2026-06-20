@@ -63,7 +63,7 @@ class ExpenseResource extends Resource
                     TextInput::make('amount')->label('Nominal')->numeric()->prefix('Rp')->required(),
                 ])
                 ->columns(2),
-            Section::make('Kaitan Operasional')
+            Section::make('Detail Tambahan')
                 ->schema([
                     Select::make('fattening_batch_id')
                         ->label('Batch Penggemukan')
@@ -78,7 +78,9 @@ class ExpenseResource extends Resource
                     Textarea::make('notes')->label('Catatan')->rows(3)->columnSpanFull(),
                     self::photoUpload('receipt_photo_paths', 'Foto Nota Pengeluaran', 'sickas-farm/nota-pengeluaran'),
                 ])
-                ->columns(2),
+                ->columns(2)
+                ->collapsible()
+                ->collapsed(),
         ]);
     }
 

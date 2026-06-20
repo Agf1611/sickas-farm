@@ -84,10 +84,16 @@ class SaleResource extends Resource
                     TextInput::make('total_weight_kg')->label('Total Bobot')->numeric()->suffix('kg'),
                     TextInput::make('unit_price')->label('Harga Satuan')->numeric()->prefix('Rp'),
                     TextInput::make('total_amount')->label('Total Penjualan')->numeric()->prefix('Rp')->required(),
+                ])
+                ->columns(2),
+            Section::make('Detail Tambahan')
+                ->schema([
                     Textarea::make('notes')->label('Catatan')->rows(3)->columnSpanFull(),
                     self::photoUpload('proof_photo_paths', 'Foto Bukti Penjualan', 'sickas-farm/bukti-penjualan'),
                 ])
-                ->columns(2),
+                ->columns(2)
+                ->collapsible()
+                ->collapsed(),
         ]);
     }
 

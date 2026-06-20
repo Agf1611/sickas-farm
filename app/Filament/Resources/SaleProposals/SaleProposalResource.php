@@ -83,12 +83,18 @@ class SaleProposalResource extends Resource
                         ->options(self::statusOptions())
                         ->default('draft')
                         ->required(),
+                ])
+                ->columns(2),
+            Section::make('Detail Tambahan')
+                ->schema([
                     Textarea::make('notes')
                         ->label('Catatan')
                         ->rows(3)
                         ->columnSpanFull(),
                 ])
-                ->columns(2),
+                ->columns(2)
+                ->collapsible()
+                ->collapsed(),
             Section::make('Estimasi Sistem')
                 ->schema([
                     TextInput::make('head_count')
@@ -116,7 +122,9 @@ class SaleProposalResource extends Resource
                         ->label('Catatan Perhitungan')
                         ->content('Jika nilai dikosongkan, sistem akan menghitung otomatis saat ajuan disimpan.'),
                 ])
-                ->columns(2),
+                ->columns(2)
+                ->collapsible()
+                ->collapsed(),
         ]);
     }
 
